@@ -25,8 +25,6 @@ public class KNN implements Model<Double, String> {
 
     @Override
     public void train(List<Instance<Double, String>> trainingData){
-        // Store reference directly or copy once.
-        // No need to copy inside the test loop.
         this.trainingData = trainingData;
     }
 
