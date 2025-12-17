@@ -1,5 +1,6 @@
 package gui;
 
+import config.Config;
 import core.Instance;
 import data.CSVReader;
 import data.DataPreprocessor;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -29,14 +31,24 @@ public class MainController {
     @FXML
     private ComboBox<String> chooseData;
 
+    @FXML
+    private TextField percentage;
+
     private Map<String, String> dataset = new HashMap<>();
 
     @FXML
     public void initialize() {
+        this.populate();
+    }
+
+    public void populate(){
         try{
-            dataset.put("Breast Cancer(Malign or Benign)", "D:\\Info\\School\\Java\\java-binary-classifier\\data\\cancer.csv");
-            dataset.put("Sonar (Mines or Rocks)", "D:\\Info\\School\\Java\\java-binary-classifier\\data\\sonar data.csv");
-            dataset.put("Telescope data(gamma or hadron)", "D:\\Info\\School\\Java\\java-binary-classifier\\data\\telescope_data_no_id.csv");
+            String path1 = Config.get("CANCER_PATH");
+            String path2  = Config.get("SONAR_PATH");
+            String path3 = Config.get("TELESCOPE_PATH");
+            dataset.put("Breast Cancer(Malign or Benign)", path1);
+            dataset.put("Sonar (Mines or Rocks)", path2);
+            dataset.put("Telescope data(gamma or hadron)", path3);
             chooseData.getItems().addAll(dataset.keySet());
             chooseData.setOnAction(event -> chooseDataset());
         }catch(Exception e){
@@ -48,6 +60,7 @@ public class MainController {
     @FXML
     public void handleKNN(ActionEvent event){
         try{
+            this.chooseDataset();
             FXMLLoader knnLoader = new FXMLLoader(getClass().getResource("KNN.fxml"));
             KNNController knnController = new KNNController(this.trainData, this.testData, this.label);
             knnLoader.setController(knnController);
@@ -75,7 +88,7 @@ public class MainController {
             this.dataPreprocessor = new DataPreprocessor(csvReader.getData());
             this.dataPreprocessor.process();
             this.dataSplitter = new DataSplitter(this.dataPreprocessor.getData());
-            dataSplitter.splitData(0.8);
+            dataSplitter.splitData(Double.parseDouble(this.percentage.getText()));
             this.trainData = dataSplitter.getTrainData();
             this.testData = dataSplitter.getTestData();
             this.label = new ArrayList<>();
