@@ -15,7 +15,7 @@
       <HBox alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#handleKNN" prefHeight="91.0" prefWidth="112.0" text="KNN-Clasification" wrapText="true" />
-            <Button mnemonicParsing="false" prefHeight="92.0" prefWidth="152.0" text="Naive Bayes Clasification" />
+            <Button mnemonicParsing="false" onAction="#handleBayes" prefHeight="92.0" prefWidth="152.0" text="Naive Bayes Clasification" />
             <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="127.0" text="Linear Regression" />
          </children>
       </HBox>

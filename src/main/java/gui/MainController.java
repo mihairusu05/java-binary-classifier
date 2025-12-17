@@ -95,4 +95,25 @@ public class MainController {
             this.testData.forEach(p -> this.label.add(p.getOutput()));
         }
     }
+
+    @FXML
+    public void handleBayes(ActionEvent event){
+        try{
+            this.chooseDataset();
+            FXMLLoader bayesLoader = new FXMLLoader(getClass().getResource("Bayes.fxml"));
+            BayesController bayesController= new BayesController(this.trainData, this.testData, this.label);
+            bayesLoader.setController(bayesController);
+            Stage stage = new Stage();
+            Scene scene = new Scene(bayesLoader.load());
+            stage.setScene(scene);
+            stage.setTitle("KNN Classification");
+            stage.setMinWidth(400);
+            stage.setMinHeight(300);
+            stage.show();
+
+        }catch(Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+        }
+    }
 }
