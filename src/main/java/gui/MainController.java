@@ -92,7 +92,7 @@ public class MainController {
         try{
             this.chooseDataset();
             FXMLLoader knnLoader = new FXMLLoader(getClass().getResource("KNN.fxml"));
-            KNNController knnController = new KNNController(this.trainData, this.testData, this.label);
+            KNNController knnController = new KNNController(this.trainData, this.testData, this.label, this.positiveLabel);
             knnLoader.setController(knnController);
             Stage knnStage = new Stage();
             Scene scene = new Scene(knnLoader.load());
@@ -113,7 +113,7 @@ public class MainController {
         try{
             this.chooseDataset();
             FXMLLoader bayesLoader = new FXMLLoader(getClass().getResource("Bayes.fxml"));
-            BayesController bayesController= new BayesController(this.trainData, this.testData, this.label);
+            BayesController bayesController= new BayesController(this.trainData, this.testData, this.label, this.positiveLabel);
             bayesLoader.setController(bayesController);
             Stage stage = new Stage();
             Scene scene = new Scene(bayesLoader.load());

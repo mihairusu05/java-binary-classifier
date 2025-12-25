@@ -2,6 +2,7 @@ package gui;
 
 import core.Instance;
 import evaluation.Accuracy;
+import evaluation.ConfusionMatrix;
 import evaluation.Precision;
 import evaluation.Recall;
 import javafx.event.ActionEvent;
@@ -43,6 +44,18 @@ public class LogisticController {
     private TextField learningRate;
 
     @FXML
+    private Label truePositive;
+
+    @FXML
+    private Label falseNegative;
+
+    @FXML
+    private Label falsePositive;
+
+    @FXML
+    private Label trueNegative;
+
+    @FXML
     public void trainTestRunLogistic(ActionEvent event){
         try{
             int epochs = Integer.parseInt(this.epochs.getText());
@@ -53,9 +66,15 @@ public class LogisticController {
             Accuracy<Double, String> accuracy1 = new Accuracy<Double, String>();
             Precision<Double, String> precision1 = new Precision<Double, String>(this.positiveLabel);
             Recall<Double, String> recall1 = new Recall<Double, String>(this.positiveLabel);
+            ConfusionMatrix confusionMatrix = new ConfusionMatrix(this.positiveLabel);
+            confusionMatrix.calculate(this.label, predictions);
             this.accuracy.setText(accuracy1.evaluate(this.testData, predictions)*100 + "%");
             this.precision.setText(precision1.evaluate(this.testData, predictions)*100 + "%");
             this.recall.setText(recall1.evaluate(this.testData, predictions)*100 + "%");
+            this.truePositive.setText(confusionMatrix.getTP()+"");
+            this.falseNegative.setText(confusionMatrix.getFN()+"");
+            this.falsePositive.setText(confusionMatrix.getFP()+"");
+            this.trueNegative.setText(confusionMatrix.getTN()+"");
         }catch(Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.showAndWait();

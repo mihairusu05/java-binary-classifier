@@ -4,7 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
@@ -12,7 +15,7 @@
       <Label text="Logistic Regression Classifier" BorderPane.alignment="CENTER" />
    </top>
    <left>
-      <VBox prefHeight="282.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="282.0" prefWidth="340.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Stats" />
             <HBox prefHeight="10.0" prefWidth="100.0">
@@ -33,6 +36,44 @@
                   <Label fx:id="recall" prefHeight="18.0" prefWidth="62.0" />
                </children>
             </HBox>
+            <Label text="Confusion Matrix : " />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="True positives : " />
+                        <Label fx:id="truePositive" prefHeight="18.0" prefWidth="87.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="False negative : " />
+                        <Label fx:id="falseNegative" prefHeight="18.0" prefWidth="84.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="False positive : " />
+                        <Label fx:id="falsePositive" prefHeight="18.0" prefWidth="82.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="True negative : " />
+                        <Label fx:id="trueNegative" prefHeight="18.0" prefWidth="86.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
          </children>
       </VBox>
    </left>
