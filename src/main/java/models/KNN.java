@@ -7,8 +7,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class KNN implements Model<Double, String> {
-    /// For Knn training the best k should be between 1 and rad(number of training points)
-
     private Integer k;
     private List<Instance<Double, String>> trainingData;
 
@@ -46,6 +44,9 @@ public class KNN implements Model<Double, String> {
     }
 
     public String findLabel(Instance<Double, String> instance){
+//        For the KNN model we use a simple Euclidean distance to find the best candidates
+//        Out of those we take the k closest in distance and check what label appears most
+//        for them , therefore making our decision.
         class NeighborPair implements Comparable<NeighborPair> {
             Double distance;
             String label;

@@ -28,7 +28,7 @@ public class BayesController {
     private Label showAccuracy;
 
     @FXML
-    public void trainTestRun(ActionEvent event){
+    public void trainTestRunBayes(ActionEvent event){
         try{
             GaussianNaiveBayes model = new GaussianNaiveBayes();
             model.train(this.trainData);

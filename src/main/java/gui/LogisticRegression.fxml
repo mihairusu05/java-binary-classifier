@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Logistic Regression Classifier" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <VBox prefHeight="282.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Stats" />
+            <HBox prefHeight="10.0" prefWidth="100.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="62.0" text="Accuracy:" wrapText="true" />
+                  <Label fx:id="accuracy" prefHeight="18.0" prefWidth="60.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="16.0" prefWidth="302.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="59.0" text="Precision:" />
+                  <Label fx:id="precision" prefHeight="18.0" prefWidth="71.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="21.0" prefWidth="302.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="51.0" text="Recall:" />
+                  <Label fx:id="recall" prefHeight="18.0" prefWidth="62.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#trainTestRunLogistic" prefHeight="51.0" prefWidth="94.0" text="Train/Test" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="218.0" prefWidth="298.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Hyperparams" />
+            <HBox prefHeight="45.0" prefWidth="298.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="96.0" text="Epochs" />
+                  <TextField fx:id="epochs" prefHeight="26.0" prefWidth="149.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="18.0" prefWidth="298.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="97.0" text="Learning Rate" />
+                  <TextField fx:id="learningRate" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -9,8 +9,8 @@ public class GaussianNaiveBayes implements Model<Double, String> {
     private Map<String, List<Double>> meansMap = new HashMap<>();
     private Map<String, List<Double>> variancesMap = new HashMap<>();
     int totalNumber;
-    int label1;
-    int label2;
+    int label1NrFeatures;
+    int label2NrFeatures;
 
 
     public Double getMean(List<Double> featureValues){
@@ -44,8 +44,8 @@ public class GaussianNaiveBayes implements Model<Double, String> {
         List<String> labels = new ArrayList<>(sortedData.keySet());
         String label1Name = labels.getFirst();
         String label2Name = labels.getLast();
-        this.label1 = sortedData.get(label1Name).size();
-        this.label2  = sortedData.get(label2Name).size();
+        this.label1NrFeatures = sortedData.get(label1Name).size();
+        this.label2NrFeatures = sortedData.get(label2Name).size();
 
         for (Map.Entry<String, List<Instance<Double, String>>> entry : sortedData.entrySet()) {
             String className = entry.getKey();
@@ -81,11 +81,16 @@ public class GaussianNaiveBayes implements Model<Double, String> {
     }
 
     public String processInstance(Instance<Double, String> instance) {
+//        Here we compute P(label|features) = P(features|label) * P(label) / P(features)
+//        Since P(features) is for both labels the same we save time but not computing it
+//        Also we use the mathematical logarithm trick to avoid multiplying by very small numbers,
+//        therefore making the score 0 either way.
+
         List<String> labels = new ArrayList<>(this.meansMap.keySet());
         String label1 = labels.get(0);
         String label2 = labels.get(1);
-        double label1Score = Math.log((double) this.label1 / this.totalNumber);
-        double label2Score = Math.log((double) this.label2 / this.totalNumber);
+        double label1Score = Math.log((double) this.label1NrFeatures / this.totalNumber);
+        double label2Score = Math.log((double) this.label2NrFeatures / this.totalNumber);
 
         int index = 0;
         for (Double feature : instance.getInput()) {

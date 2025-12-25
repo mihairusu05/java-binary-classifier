@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.KNN;
+import models.LogisticRegression;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class KNNController {
     private Label showAccuracy;
 
     @FXML
-    public void trainTestRun(ActionEvent event){
+    public void trainTestRunKNN(ActionEvent event){
         try{
             int k = Integer.parseInt(getK.getText());
             KNN knnModel = new KNN(k);

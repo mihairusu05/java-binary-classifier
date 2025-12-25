@@ -27,6 +27,7 @@ public class MainController {
     List<Instance<Double, String>> trainData ;
     List<Instance<Double, String>> testData;
     List<String> label = new ArrayList<>();
+    private String positiveLabel = "default";
 
     @FXML
     private ComboBox<String> chooseData;
@@ -57,6 +58,35 @@ public class MainController {
         }
     }
 
+
+
+    public void chooseDataset() {
+
+        String selectedName = chooseData.getValue();
+        if (selectedName.contains("Cancer")){
+            this.positiveLabel = "M";//malign
+        }
+        else if(selectedName.contains("Sonar")){
+            this.positiveLabel = "M";//mine
+        }
+        else if(selectedName.contains("Telescope")){
+            this.positiveLabel = "g";//gamma
+        }
+
+        if (selectedName != null) {
+            String actualPath = dataset.get(selectedName);
+            this.csvReader = new CSVReader(actualPath);
+            this.dataPreprocessor = new DataPreprocessor(csvReader.getData());
+            this.dataPreprocessor.process();
+            this.dataSplitter = new DataSplitter(this.dataPreprocessor.getData());
+            dataSplitter.splitData(Double.parseDouble(this.percentage.getText()));
+            this.trainData = dataSplitter.getTrainData();
+            this.testData = dataSplitter.getTestData();
+            this.label = new ArrayList<>();
+            this.testData.forEach(p -> this.label.add(p.getOutput()));
+        }
+    }
+
     @FXML
     public void handleKNN(ActionEvent event){
         try{
@@ -78,24 +108,6 @@ public class MainController {
         }
     }
 
-    public void chooseDataset() {
-
-        String selectedName = chooseData.getValue();
-
-        if (selectedName != null) {
-            String actualPath = dataset.get(selectedName);
-            this.csvReader = new CSVReader(actualPath);
-            this.dataPreprocessor = new DataPreprocessor(csvReader.getData());
-            this.dataPreprocessor.process();
-            this.dataSplitter = new DataSplitter(this.dataPreprocessor.getData());
-            dataSplitter.splitData(Double.parseDouble(this.percentage.getText()));
-            this.trainData = dataSplitter.getTrainData();
-            this.testData = dataSplitter.getTestData();
-            this.label = new ArrayList<>();
-            this.testData.forEach(p -> this.label.add(p.getOutput()));
-        }
-    }
-
     @FXML
     public void handleBayes(ActionEvent event){
         try{
@@ -106,7 +118,28 @@ public class MainController {
             Stage stage = new Stage();
             Scene scene = new Scene(bayesLoader.load());
             stage.setScene(scene);
-            stage.setTitle("KNN Classification");
+            stage.setTitle("Naive Gaussian Bayes Classification");
+            stage.setMinWidth(400);
+            stage.setMinHeight(300);
+            stage.show();
+
+        }catch(Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void handleLogistic(ActionEvent event){
+        try{
+            this.chooseDataset();
+            FXMLLoader logisticLoader = new FXMLLoader(getClass().getResource("LogisticRegression.fxml"));
+            LogisticController logisticController = new LogisticController(this.trainData, this.testData, this.label, this.positiveLabel);
+            logisticLoader.setController(logisticController);
+            Stage stage = new Stage();
+            Scene scene = new Scene(logisticLoader.load());
+            stage.setScene(scene);
+            stage.setTitle("Logistic Regression Classification");
             stage.setMinWidth(400);
             stage.setMinHeight(300);
             stage.show();
